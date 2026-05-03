@@ -138,7 +138,6 @@ pip install platformio
 
 ```bash
 sudo pacman -S avr-gcc avr-binutils avr-libc avrdude
-sudo pacman -S avr-size avr-nm
 
 # avr-gdb: AUR only
 yay -S avr-gdb

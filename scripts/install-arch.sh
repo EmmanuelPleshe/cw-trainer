@@ -33,8 +33,6 @@ sudo pacman -S --needed \
     avr-binutils \
     avr-libc \
     avrdude \
-    avr-size \
-    avr-nm \
     gtkwave
 
 # Step 2: AUR packages
