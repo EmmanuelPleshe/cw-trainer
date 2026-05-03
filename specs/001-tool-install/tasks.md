@@ -14,12 +14,12 @@
 
 **Purpose**: Create install scripts and documentation
 
-- [ ] T001 Create scripts directory at repository root
-- [ ] T002 Create docs directory at repository root
-- [ ] T003 [P] Create install-arch.sh script in scripts/
-- [ ] T004 [P] Create tool-install.md documentation in docs/
-- [ ] T005 Make install-arch.sh executable (chmod +x)
-- [ ] T006 Verify script syntax with bash -n
+- [X] T001 Create scripts directory at repository root
+- [X] T002 Create docs directory at repository root
+- [X] T003 [P] Create install-arch.sh script in scripts/
+- [X] T004 [P] Create tool-install.md documentation in docs/
+- [X] T005 Make install-arch.sh executable (chmod +x)
+- [X] T006 Verify script syntax with bash -n
 
 ---
 
@@ -27,9 +27,9 @@
 
 **Purpose**: Verify created artifacts
 
-- [ ] T007 Test install script syntax: `bash -n scripts/install-arch.sh`
-- [ ] T008 Verify docs/tool-install.md has all required sections
-- [ ] T009 Verify quickstart.md in specs matches install script
+- [X] T007 Test install script syntax: `bash -n scripts/install-arch.sh`
+- [X] T008 Verify docs/tool-install.md has all required sections
+- [X] T009 Verify quickstart.md in specs matches install script
 
 ---
 
@@ -37,9 +37,9 @@
 
 **Purpose**: Final review and cleanup
 
-- [ ] T010 Review install-arch.sh for completeness
-- [ ] T011 Review tool-install.md for accuracy
-- [ ] T012 Update CLAUDE.md with new docs reference
+- [X] T010 Review install-arch.sh for completeness
+- [X] T011 Review tool-install.md for accuracy
+- [X] T012 Update CLAUDE.md with new docs reference
 
 ---
 
