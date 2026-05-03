@@ -1,4 +1,4 @@
 <!-- SPECKIT START -->
-For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
+Current plan: specs/001-tool-install/plan.md
+Constitution: .specify/memory/constitution.md
 <!-- SPECKIT END -->
