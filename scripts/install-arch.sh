@@ -121,8 +121,11 @@ else
 fi
 
 echo -n "Wokwi: "
-if wokwi --version &> /dev/null; then
+# Check in PATH or common install location
+if command -v wokwi &> /dev/null; then
     echo "OK ($(wokwi --version))"
+elif [ -x "$HOME/.wokwi/bin/wokwi-cli" ]; then
+    echo "OK ($($HOME/.wokwi/bin/wokwi-cli -V))"
 else
     echo "FAILED"
     ((errors++))
