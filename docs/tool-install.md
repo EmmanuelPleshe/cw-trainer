@@ -68,7 +68,7 @@ export PATH="$HOME/.local/bin:$PATH"
 #### 4. Install Wokwi CLI
 
 ```bash
-npm install -g @wokwi/cli
+curl -L https://wokwi.com/ci/install.sh | sh
 wokwi login
 ```
 

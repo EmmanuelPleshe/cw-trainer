@@ -158,8 +158,7 @@ sudo pacman -S gtkwave
 ## B.5 Wokwi CLI (Tier 3)
 
 ```bash
-sudo pacman -S nodejs npm
-npm install -g @wokwi/cli
+curl -L https://wokwi.com/ci/install.sh | sh
 wokwi login
 ```
 

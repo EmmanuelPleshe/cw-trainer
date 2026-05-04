@@ -48,7 +48,7 @@ pipx install platformio
 # Step 4: Wokwi CLI
 echo ""
 echo "==> Installing Wokwi CLI..."
-npm install -g @wokwi/cli
+curl -L https://wokwi.com/ci/install.sh | sh
 
 # Verify installations
 echo ""

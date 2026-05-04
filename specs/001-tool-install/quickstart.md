@@ -28,7 +28,7 @@ yay -S --needed simavr avr-gdb
 pipx install platformio
 
 # 4. Install Wokwi CLI
-npm install -g @wokwi/cli
+curl -L https://wokwi.com/ci/install.sh | sh
 wokwi login
 ```
 
