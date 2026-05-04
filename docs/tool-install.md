@@ -69,7 +69,13 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ```bash
 curl -L https://wokwi.com/ci/install.sh | sh
-wokwi login
+```
+
+Then set your API token:
+
+```bash
+# Get token from https://wokwi.com/dashboard/ci
+export WOKWI_CLI_TOKEN=your-token-here
 ```
 
 ## Verification

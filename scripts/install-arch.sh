@@ -145,8 +145,9 @@ if [ $errors -eq 0 ]; then
     if [ $installed -eq 1 ]; then
         echo ""
         echo "Next steps:"
-        echo "  1. Run 'wokwi login' to authenticate with Wokwi"
-        echo "  2. Create your SpeckIT project structure"
+        echo "  1. Get token from https://wokwi.com/dashboard/ci"
+        echo "  2. Export WOKWI_CLI_TOKEN=your-token"
+        echo "  3. Create your SpeckIT project structure"
     fi
     exit 0
 else

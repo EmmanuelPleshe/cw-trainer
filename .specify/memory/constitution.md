@@ -159,7 +159,9 @@ sudo pacman -S gtkwave
 
 ```bash
 curl -L https://wokwi.com/ci/install.sh | sh
-wokwi login
+
+# Set token from https://wokwi.com/dashboard/ci
+export WOKWI_CLI_TOKEN=your-token
 ```
 
 ## B.6 One-Shot Install Script

@@ -29,7 +29,9 @@ pipx install platformio
 
 # 4. Install Wokwi CLI
 curl -L https://wokwi.com/ci/install.sh | sh
-wokwi login
+
+# Get token from https://wokwi.com/dashboard/ci
+export WOKWI_CLI_TOKEN=your-token
 ```
 
 ## Verify Installation
