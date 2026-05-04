@@ -73,7 +73,7 @@ else
 fi
 
 echo -n "simavr: "
-if simavr --help &> /dev/null; then
+if simavr --list-cores &> /dev/null; then
     echo "OK"
 else
     echo "FAILED"
