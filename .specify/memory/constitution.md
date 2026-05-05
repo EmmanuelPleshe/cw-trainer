@@ -1,10 +1,14 @@
 # SpeckIT Constitution
-<!-- CW Trainer for Arduino Uno R3 -->
+<!-- CW Trainer — Fork of Arduino CW Trainer by Mike Hughes (KC1DMR), originally based on Tom Lewis (N4TL) QST September 2016 design -->
+
+## Preamble
+
+This project is a fork of the Arduino CW Trainer by Mike Hughes (KC1DMR), originally based on Tom Lewis's (N4TL) QST September 2016 design. It uses the Koch method with an Adafruit RGB LCD Shield. All new development and refactoring shall follow test-first methodologies and documentation-driven design, leveraging the existing `lib/hal/` abstraction and PlatformIO dual-target build system.
 
 ## Core Principles
 
 ### I. Hardware-First (The Iron Law)
-The Arduino Uno R3 is not a suggestion — it is the law. All design decisions must respect ATmega328P constraints: 31.5 KB flash, 2 KB SRAM, 1 KB EEPROM, 16 MHz clock. No `String`, no `malloc`, no float in hot paths, no recursion. PROGMEM for all constant data.
+The Arduino Nano / Uno R3 is not a suggestion — it is the law. All design decisions must respect ATmega328P constraints: 31.5 KB flash, 2 KB SRAM, 1 KB EEPROM, 16 MHz clock. No `String`, no `malloc`, no float in hot paths, no recursion. PROGMEM for all constant data.
 
 ### II. Memory Discipline
 SRAM budget: ≤512 B globals, ≤512 B stack, 0 B heap. Use `uint8_t` not `int`, bitfields for flags. Flash: all strings via `F()` or PROGMEM. EEPROM: persistent config + SRS buckets only. Every byte guilty until proven innocent.
@@ -17,6 +21,49 @@ TDD mandatory: Tests written → User approved → Tests fail → Then implement
 
 ### V. Code Quality Standards
 C++ with Arduino core, write C-style where possible. No STL containers, no exceptions, no RTTI. Naming: UPPER_SNAKE_CASE constants, lower_snake_case functions, g_prefix globals, k_prefix PROGMEM tables. Max 50 lines per function.
+
+---
+
+## Article I: Test-First Development
+
+**1.1** No changes to `src/nano/main.cpp`, `src/desktop/main.cpp`, or `lib/hal/` shall be considered complete until logic is validated in the `test/` directory.
+
+**1.2** The existing `test/test_hal.cpp` shall be expanded into a full HAL verification suite; new HAL implementations require corresponding tests in `test/desktop/` or `test/test_hal/`.
+
+**1.3** The `libraries/morseIO/` logic (`MorseEnDecoder.cpp`) shall be wrapped or forked into `lib/core/` with host-native unit tests, preserving the original API but enabling testability without Arduino headers.
+
+**1.4** PlatformIO's `native` environment shall be the primary test runner; `nano` environment builds only after `pio test -e native` passes.
+
+## Article II: Documentation-First Specification
+
+**2.1** All new features or refactors shall begin with a specification in `specs/###-feature-name/` following the established pattern in `specs/001-tool-install/` and `specs/002-pio-project/`.
+
+**2.2** Each spec directory shall contain: `spec.md` (behavioral contract), `plan.md` (implementation steps), `tasks.md` (checklist), `research.md` (decisions/rationale), and `quickstart.md` (verification steps).
+
+**2.3** `CLAUDE.md` shall serve as the project constitution and architectural decision record; modifications require explicit constitutional amendment.
+
+## Article III: Architecture & Boundaries
+
+**3.1** Respect the existing directory boundaries:
+- `src/nano/main.cpp` — Nano target entry point, includes `hal.h`
+- `src/desktop/main.cpp` — Desktop/simulation entry point, includes `hal.h`
+- `lib/hal/` — Hardware abstraction (`hal.h`, `hal_nano.cpp`, `hal_desktop.cpp`)
+- `lib/core/` — *New:* Pure logic extracted from `cw-trainer/cw-trainer.ino` and `libraries/morseIO/`
+- `test/` — Host-native tests, mirroring `lib/` structure
+
+**3.2** No Arduino-specific code in `lib/core/`; only `lib/hal/` and `src/nano/` may include `<Arduino.h>` or hardware libraries.
+
+**3.3** The monolithic `cw-trainer/cw-trainer.ino` shall be treated as legacy; new logic migrates to `lib/core/`, with `.ino` becoming a thin orchestrator.
+
+## Article IV: Continuous Verification
+
+**4.1** `test/test_hal.cpp` shall validate HAL contract compliance for both `hal_desktop.cpp` and `hal_nano.cpp` (where nano tests run via simavr/Wokwi).
+
+**4.2** Morse timing logic shall specify: nominal milliseconds per unit, Farnsworth spacing ratio, and tolerance thresholds in specs.
+
+**4.3** Memory tracking: document RAM/Flash impact in `specs/###/data-model.md` when modifying core algorithms.
+
+---
 
 ## Game Design & Pedagogy
 
@@ -34,15 +81,15 @@ C++ with Arduino core, write C-style where possible. No STL containers, no excep
 
 **Commits**: Imperative mood, ≤50 chars summary.
 
-**CI Gates**: Compiles for Uno, SRAM usage <80%, no `String` usage. Pre-release: compile check, smoke test, audio test, EEPROM test, stress test, decoder test.
+**CI Gates**: Compiles for Nano, SRAM usage <80%, no `String` usage. Pre-release: compile check, smoke test, audio test, EEPROM test, stress test, decoder test.
 
 **Version Control & Collaboration**: PRs require review. Retain original attribution (Tom Lewis N4TL, Mike Hughes KC1DMR) in source headers. MIT license for SpeckIT modifications.
 
 ## Governance
 
-Constitution supersedes all other practices. Amendments require documentation, approval, and migration plan. All PRs/reviews must verify compliance with hardware constraints and memory budgets. Use Addendum A (Simulation-First) for development guidance.
+Constitution supersedes all other practices. Amendments require documentation, approval, and migration plan. All PRs/reviews must verify compliance with hardware constraints and memory budgets.
 
-**Version**: 1.1.0 | **Ratified**: 2026-05-02 | **Last Amended**: 2026-05-02
+**Version**: 2.0.0 | **Ratified**: 2026-05-02 | **Last Amended**: 2026-05-05
 
 ---
 
@@ -61,8 +108,9 @@ Hardware is optional. Correctness is mandatory. Every feature must be provably c
 
 ## A.3 Project Structure
 ```
-speckit/
+cw-trainer/
 ├── lib/               # Shared logic — tested at Tier 1
+│   ├── core/          # Pure logic, no Arduino deps
 │   ├── koch/
 │   ├── srs/
 │   ├── cw_engine/
@@ -70,13 +118,14 @@ speckit/
 │   ├── game/
 │   └── hal/           # Hardware Abstraction Layer
 ├── src/
-│   ├── nano/         # Arduino entry point
-│   └── desktop/      # Native test runner
+│   ├── nano/          # Arduino entry point
+│   └── desktop/       # Native test runner
 ├── test/
-│   ├── desktop/      # Tier 1 unit tests
-│   └── wokwi/        # Tier 3 scenarios
-├── simavr/           # Tier 2 scripts
-├── wokwi/            # Wokwi project files
+│   ├── core/          # Tier 1 unit tests (NEW)
+│   ├── desktop/       # Tier 1 unit tests
+│   └── wokwi/         # Tier 3 scenarios
+├── simavr/            # Tier 2 scripts
+├── wokwi/             # Wokwi project files
 └── platformio.ini
 ```
 
@@ -84,7 +133,7 @@ speckit/
 Every Arduino-specific call must go through HAL. No `digitalWrite`, `tone`, `millis`, or `analogRead` in game logic. HAL provides: time, tone/audio, input (buttons/key), output (LCD), EEPROM, random, LED/debug interfaces.
 
 ## A.5 Tier 1: Native Tests
-Run with `pio test --environment desktop`. Tests use Unity framework. Mock HAL in `hal_desktop.cpp` provides controllable time, LCD buffer inspection, tone tracking.
+Run with `pio test -e native`. Tests use Unity framework. Mock HAL in `hal_desktop.cpp` provides controllable time, LCD buffer inspection, tone tracking.
 
 ## A.6 Tier 2: simavr
 Cycle-accurate verification for timing-critical code. Scripts in `simavr/run.sh` with GDB breakpoints and VCD trace output.
