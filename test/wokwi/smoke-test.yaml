@@ -1,0 +1,8 @@
+name: "SpeckIT Smoke Test"
+version: 1
+author: "speckit"
+
+steps:
+  - wait-serial: "SpeckIT"
+  - wait-serial: "CW Trainer"
+  - delay: 1s

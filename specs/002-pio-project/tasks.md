@@ -14,12 +14,12 @@
 
 **Purpose**: Create PlatformIO configuration and directory structure
 
-- [ ] T001 Create platformio.ini with nano and desktop environments
-- [ ] T002 [P] Create lib/hal/ directory structure
-- [ ] T003 [P] Create src/nano/ directory for Arduino code
-- [ ] T004 [P] Create src/desktop/ directory for test runner
-- [ ] T005 Create test/desktop/ directory for Tier 1 tests
-- [ ] T006 Create test/wokwi/ directory for Tier 3 scenarios
+- [X] T001 Create platformio.ini with nano and desktop environments
+- [X] T002 [P] Create lib/hal/ directory structure
+- [X] T003 [P] Create src/nano/ directory for Arduino code
+- [X] T004 [P] Create src/desktop/ directory for test runner
+- [X] T005 Create test/desktop/ directory for Tier 1 tests
+- [X] T006 Create test/wokwi/ directory for Tier 3 scenarios
 
 ---
 
@@ -27,10 +27,10 @@
 
 **Purpose**: Define and implement hardware abstraction layer
 
-- [ ] T007 Create lib/hal/hal.h with complete HAL interface
-- [ ] T008 [P] Create lib/hal/hal_nano.cpp (Arduino implementation)
-- [ ] T009 [P] Create lib/hal/hal_desktop.cpp (mock implementation)
-- [ ] T010 Add test helpers to hal_desktop.cpp (test_lcd_get_row, test_advance_time)
+- [X] T007 Create lib/hal/hal.h with complete HAL interface
+- [X] T008 [P] Create lib/hal/hal_nano.cpp (Arduino implementation)
+- [X] T009 [P] Create lib/hal/hal_desktop.cpp (mock implementation)
+- [X] T010 Add test helpers to hal_desktop.cpp (test_lcd_get_row, test_advance_time)
 
 ---
 
@@ -40,9 +40,9 @@
 
 **Independent Test**: Run `pio run` and verify .hex file produced
 
-- [ ] T011 [US1] Create minimal src/nano/main.cpp with setup/loop
-- [ ] T012 [US1] Verify platformio.ini builds with `pio run`
-- [ ] T013 [US1] Verify .hex output for ATmega328P
+- [X] T011 [US1] Create minimal src/nano/main.cpp with setup/loop
+- [X] T012 [US1] Verify platformio.ini builds with `pio run`
+- [X] T013 [US1] Verify .hex output for ATmega328P
 
 ---
 
@@ -52,9 +52,9 @@
 
 **Independent Test**: Run tests, verify Unity test runner works
 
-- [ ] T014 [US2] Create src/desktop/main.cpp test runner stub
-- [ ] T015 [US2] Create test/desktop/test_hal/test_hal.cpp with basic test
-- [ ] T016 [US2] Verify tests run with `pio test --environment desktop`
+- [X] T014 [US2] Create src/desktop/main.cpp test runner stub
+- [X] T015 [US2] Create test/desktop/test_hal/test_hal.cpp with basic test
+- [X] T016 [US2] Verify tests run with `pio test --environment desktop`
 
 ---
 
@@ -64,9 +64,9 @@
 
 **Independent Test**: Native tests compile and run without Arduino headers
 
-- [ ] T017 [US3] Verify hal_desktop.cpp compiles without ARDUINO define
-- [ ] T018 [US3] Add HAL mock test: hal_millis returns controllable time
-- [ ] T019 [US3] Add HAL mock test: LCD buffer inspection works
+- [X] T017 [US3] Verify hal_desktop.cpp compiles without ARDUINO define
+- [X] T018 [US3] Add HAL mock test: hal_millis returns controllable time
+- [X] T019 [US3] Add HAL mock test: LCD buffer inspection works
 
 ---
 
@@ -76,9 +76,9 @@
 
 **Independent Test**: Run `wokwi-cli --scenario test/wokwi/smoke-test.yaml`
 
-- [ ] T020 [US4] Create wokwi/diagram.json for Arduino Uno setup
-- [ ] T021 [US4] Create test/wokwi/smoke-test.yaml scenario
-- [ ] T022 [US4] Verify Wokwi CLI starts simulation
+- [X] T020 [US4] Create wokwi/diagram.json for Arduino Uno setup
+- [X] T021 [US4] Create test/wokwi/smoke-test.yaml scenario
+- [X] T022 [US4] Verify Wokwi CLI starts simulation
 
 ---
 
@@ -86,10 +86,10 @@
 
 **Purpose**: Final verification and documentation
 
-- [ ] T023 Verify full build: `pio run` completes without errors
-- [ ] T024 Verify full test: `pio test --environment desktop` passes
+- [X] T023 Verify full build: `pio run` completes without errors
+- [X] T024 Verify full test: `pio test --environment desktop` passes
 - [ ] T025 Update quickstart.md with new project structure
-- [ ] T026 Verify Constitution compliance: no String, no malloc in lib/
+- [X] T026 Verify Constitution compliance: no String, no malloc in lib/
 
 ---
 

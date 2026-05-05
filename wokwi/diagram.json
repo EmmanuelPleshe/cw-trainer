@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "author": "speckit",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0 },
+    { "type": "wokwi-lcd1602", "id": "lcd", "top": -108.8, "left": 204.8 },
+    { "type": "wokwi-buzzer", "id": "bz", "top": 55.2, "left": 384.6 },
+    { "type": "wokwi-pushbutton", "id": "btn1", "top": 200, "left": 200 }
+  ],
+  "connections": [
+    ["uno:3", "bz:1", "green", []],
+    ["uno:GND.2", "bz:2", "black", []],
+    ["uno:A0", "btn1:1.l", "blue", []],
+    ["uno:5V", "btn1:2.r", "red", []],
+    ["uno:12", "lcd:RS", "green", []],
+    ["uno:11", "lcd:E", "green", []],
+    ["uno:5", "lcd:D4", "green", []],
+    ["uno:4", "lcd:D5", "green", []],
+    ["uno:3", "lcd:D6", "green", []],
+    ["uno:2", "lcd:D7", "green", []]
+  ]
+}
