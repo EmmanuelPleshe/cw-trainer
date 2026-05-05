@@ -1,0 +1,6 @@
+.pio/
+.vscode/
+.claude/
+*.log
+*.tmp
+.DS_Store
