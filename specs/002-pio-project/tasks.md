@@ -88,7 +88,7 @@
 
 - [X] T023 Verify full build: `pio run` completes without errors
 - [X] T024 Verify full test: `pio test --environment desktop` passes
-- [ ] T025 Update quickstart.md with new project structure
+- [X] T025 Update quickstart.md with new project structure
 - [X] T026 Verify Constitution compliance: no String, no malloc in lib/
 
 ---
