@@ -42,4 +42,10 @@ void hal_led_set(bool on);
 void hal_serial_print(const char* str);
 void hal_serial_println(const char* str);
 
+#ifdef PIO_ENV_DESKTOP
+const char* test_lcd_get_row(uint8_t row);
+void test_advance_time(uint32_t ms);
+void test_eeprom_reset(void);
+#endif
+
 #endif

@@ -19,7 +19,23 @@ Clean module boundaries: UI → Game → Pedagogy → CW Engine → HAL. No circ
 ### IV. Test-First (NON-NEGOTIABLE)
 TDD mandatory: Tests written → User approved → Tests fail → Then implement. Three tiers: Tier 1 Native (PlatformIO + Unity), Tier 2 simavr (timing), Tier 3 Wokwi (integration). No code merges to main without passing all three tiers.
 
-### V. Code Quality Standards
+### V. Script + Skill (Cost Control Rule)
+Never do the same manual sequence twice. If a workflow repeats, script it in `scripts/` and skill it in `.claude/skills/` or `~/.hermes/skills/`. Applies to: worktree creation, test + lint + commit, PR creation, release deploy, environment setup. Future sessions execute skills in one turn instead of burning tokens repeating commands.
+
+### VI. Code Quality Standards
+C++ with Arduino core, write C-style where possible. No STL containers, no exceptions, no RTTI. Naming: UPPER_SNAKE_CASE constants, lower_snake_case functions, g_prefix globals, k_prefix PROGMEM tables. Max 50 lines per function.
+
+---
+
+## Script + Skill Register
+
+| Skill / Script | Path | Purpose |
+|----------------|------|---------|
+| worktree.sh | `scripts/worktree.sh` | Create a new Git worktree for feature work |
+| install-arch.sh | `scripts/install-arch.sh` | One-shot EndeavourOS/Arch tool install (Tier 1-3) |
+| (add rows as created) | | |
+
+---
 C++ with Arduino core, write C-style where possible. No STL containers, no exceptions, no RTTI. Naming: UPPER_SNAKE_CASE constants, lower_snake_case functions, g_prefix globals, k_prefix PROGMEM tables. Max 50 lines per function.
 
 ---
@@ -90,6 +106,46 @@ C++ with Arduino core, write C-style where possible. No STL containers, no excep
 Constitution supersedes all other practices. Amendments require documentation, approval, and migration plan. All PRs/reviews must verify compliance with hardware constraints and memory budgets.
 
 **Version**: 2.0.0 | **Ratified**: 2026-05-02 | **Last Amended**: 2026-05-05
+
+---
+
+## Git Workflow
+
+### Branch Policy
+
+| branch   | purpose                               | protected? |
+|----------|---------------------------------------|------------|
+| `main`   | always compiles, always flashes      | yes (PR required) |
+| `dev`    | integration branch for PRs           | yes (PR required) |
+| `feat/*` | feature work on worktrees             | no (personal) |
+| `fix/*`  | bugfix work on worktrees              | no (personal) |
+
+### Worktree-First Rule
+
+Every AI-driven coding session MUST start on a fresh worktree.
+
+```bash
+./scripts/worktree.sh my-feature
+cd .claude/worktrees/my-feature
+```
+
+All PRs from worktrees target `dev` branch. Only `dev` merges to `main` after CI passes.
+
+### Commit Style
+Imperative mood, ≤50 chars summary.
+
+### CI Gates
+Compiles for Nano, SRAM usage <80%, no `String`, Tier 1 tests pass.
+
+---
+
+## Script + Skill Register
+
+| Skill / Script | Path | Purpose |
+|----------------|------|---------|
+| worktree.sh | `scripts/worktree.sh` | Create a new Git worktree for feature work |
+| install-arch.sh | `scripts/install-arch.sh` | One-shot EndeavourOS/Arch tool install (Tier 1-3) |
+| (add rows as created) | | |
 
 ---
 

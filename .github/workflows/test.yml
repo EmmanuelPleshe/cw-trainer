@@ -1,0 +1,32 @@
+name: Tests
+
+on:
+  push:
+    branches: ["dev", "main"]
+  pull_request:
+    branches: ["main", "dev"]
+
+jobs:
+  test:
+    name: PlatformIO tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PlatformIO
+        run: pip install platformio
+
+      - name: Run native tests
+        run: platformio test -e native
+
+      - name: Build Nano target
+        run: platformio run -e nano
+
+      - name: Build desktop target
+        run: platformio run -e desktop
